@@ -852,14 +852,24 @@ angular.module('isoCurrency.common', []).factory('iso4217', function () {
 			symbol: '$'
 		},
 		/* Crypto Currencies */
+		'MBTC': {
+			text: 'MiniBitcoin',
+			fraction: 4,
+			symbol: 'mBTC '
+		},
+		'BTC': {
+			text: 'Bitcoin',
+			fraction: 4,
+			symbol: 'BTC '
+		},
 		'WGR': {
 			text: 'Wagerr',
-			fraction: 2,
+			fraction: 4,
 			symbol: 'W '
 		},
 		'FTB': {
 			text: 'FuturoBet',
-			fraction: 2,
+			fraction: 4,
 			symbol: 'F '
 		}
 	};
