@@ -925,4 +925,15 @@ angular.module('isoCurrency', ['isoCurrency.common']).filter('isoCurrency', ["$f
 		var fractionSize = fraction === void 0 ? currency.fraction : fraction;
 		return $filter('currency')(amount, currency.symbol || currencyCode + ' ', fractionSize);
 	};
-}]);
+}]).directive('isoCurrency', function() {
+	return {
+        template: '{{amount | isoCurrency}}',
+        scope :{
+        	amount:'@', 
+          	currency:'@'
+        },
+        link: function($scope, element, attributes) {
+            element[0].className = element[0].className + " " + attributes.currency;
+        }
+    };
+});
