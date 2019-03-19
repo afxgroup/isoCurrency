@@ -855,22 +855,28 @@ angular.module('isoCurrency.common', []).factory('iso4217', function () {
 		'MBTC': {
 			text: 'MiniBitcoin',
 			fraction: 4,
-			symbol: 'mBTC '
+			symbol: '',
+			crypto: true,
+			cssclass: 'cf cf-mbtc'
 		},
 		'BTC': {
 			text: 'Bitcoin',
 			fraction: 4,
-			symbol: 'BTC '
+			symbol: '',
+			crypto: true,
+			cssclass: 'cf cf-mbtc'
 		},
 		'WGR': {
 			text: 'Wagerr',
 			fraction: 4,
-			symbol: 'W '
+			symbol: 'W ',
+			crypto: true,
 		},
 		'FTB': {
 			text: 'FuturoBet',
 			fraction: 4,
-			symbol: 'F '
+			symbol: 'F ',
+			crypto: true
 		}
 	};
 
@@ -905,7 +911,8 @@ angular.module('isoCurrency.common', []).factory('iso4217', function () {
 /**
  * wraps angular's currency filter with an additional layer, in case the currency symbol is not available.
  */
-angular.module('isoCurrency', ['isoCurrency.common']).filter('isoCurrency', ["$filter", "iso4217", function ($filter, iso4217) {
+angular.module('isoCurrency', ['isoCurrency.common'])
+	.filter('isoCurrency', ["$filter", "iso4217", function ($filter, iso4217) {
 
 	/**
   * transforms an amount into the right format and currency according to a passed currency code (3 chars).
@@ -923,17 +930,28 @@ angular.module('isoCurrency', ['isoCurrency.common']).filter('isoCurrency', ["$f
 		}
 
 		var fractionSize = fraction === void 0 ? currency.fraction : fraction;
-		return $filter('currency')(amount, currency.symbol || currencyCode + ' ', fractionSize);
+		if (!currency.crypto)
+			return $filter('currency')(amount, currency.symbol || currencyCode + ' ', fractionSize);
+		else
+			return $filter('currency')(amount, '', fractionSize);
 	};
-}]).directive('isoCurrency', function() {
+}])
+	.directive('isoCurrency', ["iso4217", function(iso4217) {
+
 	return {
-        template: '{{amount | isoCurrency}}',
+        template: '<span>{{amount | isoCurrency:currency}}</span>',
         scope :{
         	amount:'@', 
           	currency:'@'
         },
         link: function($scope, element, attributes) {
-            element[0].className = element[0].className + " " + attributes.currency;
+					var currency = iso4217.getCurrencyByCode(attributes.currency);
+					var classToAdd = "";
+					if (currency.crypto == true && currency.cssclass != null) {
+						classToAdd = " " + currency.cssclass;
+
+						element[0].className = element[0].className + classToAdd;
+					}
         }
     };
-});
+}]);
