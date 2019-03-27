@@ -869,8 +869,9 @@ angular.module('isoCurrency.common', []).factory('iso4217', function () {
 		'WGR': {
 			text: 'Wagerr',
 			fraction: 4,
-			symbol: 'W ',
+			symbol: '',
 			crypto: true,
+			cssclass: 'cf cf-wgr'
 		},
 		'FTB': {
 			text: 'FuturoBet',
@@ -925,7 +926,7 @@ angular.module('isoCurrency', ['isoCurrency.common'])
 	return function (amount, currencyCode, fraction) {
 		var currency = iso4217.getCurrencyByCode(currencyCode);
 
-		if (!currency) {
+		if (!currency || amount == '') {
 			return amount;
 		}
 
