@@ -947,11 +947,13 @@ angular.module('isoCurrency', ['isoCurrency.common'])
         },
         link: function($scope, element, attributes) {
 					var currency = iso4217.getCurrencyByCode(attributes.currency);
-					var classToAdd = "";
-					if (currency.crypto == true && currency.cssclass != null) {
-						classToAdd = " " + currency.cssclass;
+					if (currency != null) {
+						var classToAdd = "";
+						if (currency.crypto == true && currency.cssclass != null) {
+							classToAdd = " " + currency.cssclass;
 
-						element[0].className = element[0].className + classToAdd;
+							element[0].className = element[0].className + classToAdd;
+						}
 					}
         }
     };
