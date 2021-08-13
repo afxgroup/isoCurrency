@@ -878,6 +878,12 @@ angular.module('isoCurrency.common', []).factory('iso4217', function () {
 			fraction: 4,
 			symbol: 'F ',
 			crypto: true
+		},
+		'PCD': {
+			text: 'Playcoin',
+			fraction: 2,
+			symbol: 'PCD ',
+			crypto: false
 		}
 	};
 
@@ -949,7 +955,7 @@ angular.module('isoCurrency', ['isoCurrency.common'])
 					var currency = iso4217.getCurrencyByCode(attributes.currency);
 					if (currency != null) {
 						var classToAdd = "";
-						if (currency.crypto == true && currency.cssclass != null) {
+						if (currency.crypto === true && currency.cssclass != null) {
 							classToAdd = " " + currency.cssclass;
 
 							element[0].className = element[0].className + classToAdd;

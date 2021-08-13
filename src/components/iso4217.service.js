@@ -849,6 +849,40 @@ angular.module('isoCurrency.common', [])
 				text: 'Zimbabwe Dollar',
 				fraction: 2,
 				symbol: '$'
+			},
+			/* Crypto Currencies */
+			'MBTC': {
+				text: 'MiniBitcoin',
+				fraction: 4,
+				symbol: '',
+				crypto: true,
+				cssclass: 'cf cf-mbtc'
+			},
+			'BTC': {
+				text: 'Bitcoin',
+				fraction: 4,
+				symbol: '',
+				crypto: true,
+				cssclass: 'cf cf-mbtc'
+			},
+			'WGR': {
+				text: 'Wagerr',
+				fraction: 4,
+				symbol: '',
+				crypto: true,
+				cssclass: 'cf cf-wgr'
+			},
+			'FTB': {
+				text: 'FuturoBet',
+				fraction: 4,
+				symbol: 'F ',
+				crypto: true
+			},
+			'PCD': {
+				text: 'Playcoin',
+				fraction: 2,
+				symbol: 'PCD ',
+				crypto: false
 			}
 		};
 
@@ -860,20 +894,20 @@ angular.module('isoCurrency.common', [])
 			 * @param string code
 			 * @return object
 			 */
-			getCurrencyByCode: (code) => {
+			getCurrencyByCode: function getCurrencyByCode(code) {
 				if (!code || typeof code !== 'string') {
 					return;
 				}
-
+	
 				return currencies[code.toUpperCase()];
 			},
-
+	
 			/**
 			 * retrives all available currenies.
 			 *
 			 * @return object
 			 */
-			getCurrencies: () => {
+			getCurrencies: function getCurrencies() {
 				return currencies;
 			}
 		};
